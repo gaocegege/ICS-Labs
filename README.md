@@ -10,4 +10,5 @@ ICS是臧斌宇老师上的课，这里是所有的Lab，放在这里做个备�
 
 *	[Lab1](http://gaocegege.github.io/Blog/ics/icslab1/)
 *	[Lab6](http://gaocegege.github.io/Blog/ics/icslab6/)
-*	未完待续
+*	[Lab8](http://gaocegege.github.io/Blog/ics/icslab8/)
+*	[Lab9](http://gaocegege.github.io/Blog/ics/icslab9/)
