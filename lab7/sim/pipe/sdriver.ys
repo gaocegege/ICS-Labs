@@ -1,0 +1,348 @@
+#######################################################################
+# Test for copying block of size 4;
+#######################################################################
+	.pos 0
+main:	irmovl Stack, %esp  	# Set up stack pointer
+	irmovl Stack, %ebp  	# Set up base pointer
+
+	# Set up arguments for copy function and then invoke it
+	irmovl $4, %eax		# src and dst have 4 elements
+	pushl %eax
+	irmovl dest, %eax	# dst array
+	pushl %eax
+	irmovl src, %eax	# src array
+	pushl %eax
+	call ncopy		 
+	halt			# should halt with num nonzeros in %eax
+StartFun:
+#Stu ID:5120379091
+#Name:Gao Ce
+#use the unrolling and jump table,to reduce the bubbles
+#/* $begin ncopy-ys */
+##################################################################
+# ncopy.ys - Copy a src block of len ints to dst.
+# Return the number of positive ints (>0) contained in src.
+#
+# Include your name and ID here.
+# Name: Gao Ce
+# Student ID: 5120379091
+#
+# Describe how and why you modified the baseline code.
+#
+##################################################################
+# Do not modify this portion
+# Function prologue.
+ncopy:	pushl %ebp		# Save old frame pointer
+	rrmovl %esp,%ebp	# Set up new frame pointer
+	pushl %esi		# Save callee-save regs
+	pushl %ebx
+	pushl %edi
+	mrmovl 8(%ebp),%ebx	# src
+	mrmovl 16(%ebp),%edx	# len
+	mrmovl 12(%ebp),%ecx	# dst
+
+##################################################################
+	irmovl $0, %eax		
+	iaddl $-16, %edx
+	jle CeceGege
+Beginning:
+	mrmovl (%ebx), %esi
+	mrmovl 4(%ebx), %edi
+	rmmovl %esi, (%ecx)
+	rmmovl %edi, 4(%ecx)
+	andl %esi, %esi
+	jle Cece1
+	iaddl $1,%eax
+Cece1:
+	andl %edi, %edi
+	jle Cece2
+	iaddl $1,%eax
+Cece2:
+	mrmovl 8(%ebx), %esi
+	mrmovl 12(%ebx), %edi
+	rmmovl %esi, 8(%ecx)
+	rmmovl %edi, 12(%ecx)
+	andl %esi, %esi
+	jle Cece3
+	iaddl $1,%eax
+Cece3:
+	andl %edi, %edi
+	jle Cece4
+	iaddl $1,%eax
+Cece4:
+	mrmovl 16(%ebx), %esi
+	mrmovl 20(%ebx), %edi
+	rmmovl %esi, 16(%ecx)
+	rmmovl %edi, 20(%ecx)
+	andl %esi, %esi
+	jle Cece5
+	iaddl $1,%eax
+Cece5:
+	andl %edi, %edi
+	jle Cece6
+	iaddl $1,%eax
+Cece6:
+	mrmovl 24(%ebx), %esi
+	mrmovl 28(%ebx), %edi
+	rmmovl %esi, 24(%ecx)
+	rmmovl %edi, 28(%ecx)
+	andl %esi, %esi
+	jle Cece7
+	iaddl $1,%eax
+Cece7:
+	andl %edi, %edi
+	jle Cece8
+	iaddl $1,%eax
+Cece8:
+	mrmovl 32(%ebx), %esi
+	mrmovl 36(%ebx), %edi
+	rmmovl %esi, 32(%ecx)
+	rmmovl %edi, 36(%ecx)
+	andl %esi, %esi
+	jle Cece9
+	iaddl $1,%eax
+Cece9:
+	andl %edi, %edi
+	jle Cece10
+	iaddl $1,%eax
+Cece10:
+	mrmovl 40(%ebx), %esi
+	mrmovl 44(%ebx), %edi
+	rmmovl %esi, 40(%ecx)
+	rmmovl %edi, 44(%ecx)
+	andl %esi, %esi
+	jle Cece11
+	iaddl $1,%eax
+Cece11:
+	andl %edi, %edi
+	jle Cece12
+	iaddl $1,%eax
+Cece12:
+	mrmovl 48(%ebx), %esi
+	mrmovl 52(%ebx), %edi
+	rmmovl %esi, 48(%ecx)
+	rmmovl %edi, 52(%ecx)
+	andl %esi, %esi
+	jle Cece13
+	iaddl $1,%eax
+Cece13:
+	andl %edi, %edi
+	jle Cece14
+	iaddl $1,%eax
+Cece14:
+	mrmovl 56(%ebx), %esi
+	mrmovl 60(%ebx), %edi
+	rmmovl %esi, 56(%ecx)
+	rmmovl %edi, 60(%ecx)
+	andl %esi, %esi
+	jle Cece15
+	iaddl $1,%eax
+Cece15:
+	andl %edi, %edi
+	jle Cece16
+	iaddl $1,%eax
+Cece16:
+	iaddl $64, %ebx
+	iaddl $64, %ecx
+	iaddl $-16, %edx
+	jle CeceGege
+	jmp Beginning
+CeceGege:
+	iaddl $16, %edx
+	addl %edx, %edx
+	addl %edx, %edx
+	mrmovl Jump(%edx), %edx
+	pushl %edx
+	ret
+Jump1:
+	mrmovl 60(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 60(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump2:
+	mrmovl 56(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 56(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump3:
+	mrmovl 52(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 52(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump4:
+	mrmovl 48(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 48(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump5:
+	mrmovl 44(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 44(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump6:
+	mrmovl 40(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 40(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump7:
+	mrmovl 36(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 36(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump8:
+	mrmovl 32(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 32(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump9:
+	mrmovl 28(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 28(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump10:
+	mrmovl 24(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 24(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump11:
+	mrmovl 20(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 20(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump12:
+	mrmovl 16(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 16(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump13:
+	mrmovl 12(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 12(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump14:
+	mrmovl 8(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 8(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump15:
+	mrmovl 4(%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, 4(%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+Jump16:
+	mrmovl (%ebx), %esi
+	rrmovl %eax, %edi
+	rmmovl %esi, (%ecx)
+	iaddl $1, %edi
+	andl %esi, %esi
+	cmovg %edi, %eax
+DoneMe:
+	leave
+	ret
+		.align 4
+Jump:
+	.long DoneMe
+	.long Jump16
+	.long Jump15
+	.long Jump14
+	.long Jump13
+	.long Jump12
+	.long Jump11
+	.long Jump10
+	.long Jump9
+	.long Jump8
+	.long Jump7
+	.long Jump6
+	.long Jump5
+	.long Jump4
+	.long Jump3
+	.long Jump2
+	.long Jump1
+##################################################################
+# Do not modify the following section of code
+# Function epilogue.
+Done:
+	popl %edi               # Restore callee-save registers
+	popl %ebx
+	popl %esi
+	rrmovl %ebp, %esp
+	popl %ebp
+	ret
+##################################################################
+# Keep the following label at the end of your function
+End:
+#/* $end ncopy-ys */
+EndFun:
+
+###############################
+# Source and destination blocks 
+###############################
+	.align 4
+src:
+	.long 1
+	.long -2
+	.long -3
+	.long 4
+	.long 0xbcdefa # This shouldn't get moved
+
+	.align 16
+Predest:
+	.long 0xbcdefa
+dest:
+	.long 0xcdefab
+	.long 0xcdefab
+	.long 0xcdefab
+	.long 0xcdefab
+Postdest:
+	.long 0xdefabc
+
+.align 4
+# Run time stack
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+	.long 0
+
+Stack:

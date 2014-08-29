@@ -1,0 +1,8 @@
+This directory contains the files that you need for the ICS lab7.
+
+Files:
+-----
+README			This file
+lab7.pdf   		Lab writeup
+sim				The Y86 tools
+simguide.pdf    ICS Guide to Simulators document	

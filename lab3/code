@@ -1,0 +1,10 @@
+
+mc.o:     file format elf32-i386
+
+
+Disassembly of section .text:
+
+00000000 <.text>:
+   0:	a1 4f 95 17 76       	mov    0x7617954f,%eax
+   5:	ff 35 39 8d 04 08    	pushl  0x8048d39
+   b:	c3                   	ret    

@@ -1,0 +1,48 @@
+# Student ID:5120379091
+# Name		:Gao Ce
+	.pos 0
+init:	
+	irmovl 0x100, %esp  	# Set up Stack pointer
+	irmovl 0x100, %ebp  	# Set up base pointer
+	jmp Main		# Execute main program
+	.align 4
+ele1:
+	.long 0x00a
+	.long ele2
+ele2:
+	.long 0x0b0
+	.long ele3
+ele3:
+	.long 0xc00
+	.long 0
+Main:
+	irmovl ele1, %ecx
+	pushl %ecx
+	call rSum
+	halt
+rSum:
+	pushl %ebp
+	rrmovl %esp,%ebp
+	pushl %ebx               #carefull
+	mrmovl 8(%ebp),%ecx
+	mrmovl (%ecx), %ebx
+	andl %ecx, %ecx
+	je Over
+	mrmovl 0x4(%ecx), %ecx
+	pushl %ecx
+	call rSum
+	addl %ebx, %eax
+	jmp End
+Over:
+	xorl %eax, %eax
+End:
+	mrmovl -4(%ebp), %ebx
+	rrmovl %ebp, %esp
+	popl %ebp
+	ret   #BUG:42lines- over   43lines- yep
+
+
+
+
+
+

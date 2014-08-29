@@ -1,0 +1,47 @@
+                      | # Student ID:5120379091
+                      | # Name		:Gao Ce
+  0x000:              | 	.pos 0
+  0x000:              | init:	
+  0x000: 30f400010000 | 	irmovl 0x100, %esp  	# Set up Stack pointer
+  0x006: 30f500010000 | 	irmovl 0x100, %ebp  	# Set up base pointer
+  0x00c: 702c000000   | 	jmp Main		# Execute main program
+                      | 
+  0x014:              | 	.align 4
+  0x014:              | ele1:
+  0x014: 0a000000     | 	.long 0x00a
+  0x018: 1c000000     | 	.long ele2
+  0x01c:              | ele2:
+  0x01c: b0000000     | 	.long 0x0b0
+  0x020: 24000000     | 	.long ele3
+  0x024:              | ele3:
+  0x024: 000c0000     | 	.long 0xc00
+  0x028: 00000000     | 	.long 0
+                      | 
+  0x02c:              | Main:
+  0x02c: 30f114000000 | 	irmovl ele1, %ecx
+  0x032: a01f         | 	pushl %ecx
+  0x034: 803a000000   | 	call Sum
+  0x039: 00           | 	halt
+                      | 
+  0x03a:              | Sum:
+  0x03a: a05f         | 	pushl %ebp
+  0x03c: 2045         | 	rrmovl %esp,%ebp
+  0x03e: 501508000000 | 	mrmovl 8(%ebp),%ecx
+  0x044: 30f000000000 | 	irmovl $0, %eax
+  0x04a: 503100000000 | 	mrmovl (%ecx), %ebx
+  0x050: 6233         | 	andl %ebx, %ebx
+  0x052: 7371000000   | 	je End
+                      | 
+  0x057:              | Loop:
+  0x057: 503100000000 | 	mrmovl (%ecx), %ebx
+  0x05d: 6030         | 	addl %ebx, %eax
+  0x05f: 501104000000 | 	mrmovl 0x4(%ecx), %ecx
+  0x065: 6211         | 	andl %ecx, %ecx
+  0x067: 7457000000   | 	jne Loop
+  0x06c: 7071000000   | 	jmp End
+                      | 
+  0x071:              | End:
+  0x071: 2054         | 	rrmovl %ebp,%esp
+  0x073: b05f         | 	popl %ebp
+  0x075: 90           | 	ret
+                      | 

@@ -1,0 +1,48 @@
+                      | # Student ID:5120379091
+                      | # Name		:Gao Ce
+  0x000:              | 	.pos 0
+  0x000:              | init:	
+  0x000: 30f400010000 | 	irmovl 0x100, %esp  	# Set up Stack pointer
+  0x006: 30f500010000 | 	irmovl 0x100, %ebp  	# Set up base pointer
+  0x00c: 702c000000   | 	jmp Main		# Execute main program
+  0x014:              | 	.align 4
+  0x014:              | ele1:
+  0x014: 0a000000     | 	.long 0x00a
+  0x018: 1c000000     | 	.long ele2
+  0x01c:              | ele2:
+  0x01c: b0000000     | 	.long 0x0b0
+  0x020: 24000000     | 	.long ele3
+  0x024:              | ele3:
+  0x024: 000c0000     | 	.long 0xc00
+  0x028: 00000000     | 	.long 0
+  0x02c:              | Main:
+  0x02c: 30f114000000 | 	irmovl ele1, %ecx
+  0x032: a01f         | 	pushl %ecx
+  0x034: 803a000000   | 	call rSum
+  0x039: 00           | 	halt
+  0x03a:              | rSum:
+  0x03a: a05f         | 	pushl %ebp
+  0x03c: 2045         | 	rrmovl %esp,%ebp
+  0x03e: a03f         | 	pushl %ebx               #carefull
+  0x040: 501508000000 | 	mrmovl 8(%ebp),%ecx
+  0x046: 503100000000 | 	mrmovl (%ecx), %ebx
+  0x04c: 6211         | 	andl %ecx, %ecx
+  0x04e: 7367000000   | 	je Over
+  0x053: 501104000000 | 	mrmovl 0x4(%ecx), %ecx
+  0x059: a01f         | 	pushl %ecx
+  0x05b: 803a000000   | 	call rSum
+  0x060: 6030         | 	addl %ebx, %eax
+  0x062: 7069000000   | 	jmp End
+  0x067:              | Over:
+  0x067: 6300         | 	xorl %eax, %eax
+  0x069:              | End:
+  0x069: 5035fcffffff | 	mrmovl -4(%ebp), %ebx
+  0x06f: 2054         | 	rrmovl %ebp, %esp
+  0x071: b05f         | 	popl %ebp
+  0x073: 90           | 	ret   #BUG:42lines- over   43lines- yep
+                      | 
+                      | 
+                      | 
+                      | 
+                      | 
+                      | 

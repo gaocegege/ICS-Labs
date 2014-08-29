@@ -1,0 +1,4 @@
+ps -e | sort -k 4
+cd /usr/share/dict grep '^a' words |wc
+cd /etc ls -S |grep '.conf' | head -5
+touch echo.sh echo hello world!>> chmod +x echo.sh

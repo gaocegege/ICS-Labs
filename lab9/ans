@@ -1,0 +1,51 @@
+./sdriver.pl -t trace13.txt -s ./tshref -a "-p"
+#
+# trace13.txt - Restart every stopped process in process group
+#
+tsh> ./mysplit 4
+Job [1] (4068) stopped by signal 20
+tsh> jobs
+[1] (4068) Stopped ./mysplit 4 
+tsh> /bin/ps a
+  PID TTY      STAT   TIME COMMAND
+ 1091 tty4     Ss+    0:00 /sbin/getty -8 38400 tty4
+ 1098 tty5     Ss+    0:00 /sbin/getty -8 38400 tty5
+ 1116 tty2     Ss+    0:00 /sbin/getty -8 38400 tty2
+ 1117 tty3     Ss+    0:00 /sbin/getty -8 38400 tty3
+ 1122 tty6     Ss+    0:00 /sbin/getty -8 38400 tty6
+ 1202 tty7     Ss+    1:15 /usr/bin/X :0 -core -auth /var/run/lightdm/root/:0 -nolisten tcp vt7 -novtswitch -background none
+ 1414 tty1     Ss+    0:00 /sbin/getty -8 38400 tty1
+ 2188 pts/2    Ss     0:00 bash
+ 2250 pts/2    S      0:00 su
+ 2272 pts/2    S      0:00 bash
+ 2309 pts/2    S      0:00 su gaoce
+ 2317 pts/2    S+     0:00 bash
+ 3993 pts/3    Ss     0:00 bash
+ 4063 pts/3    S+     0:00 make rtest13
+ 4064 pts/3    S+     0:00 /bin/sh -c ./sdriver.pl -t trace13.txt -s ./tshref -a "-p"
+ 4065 pts/3    S+     0:00 /usr/bin/perl ./sdriver.pl -t trace13.txt -s ./tshref -a -p
+ 4066 pts/3    S+     0:00 ./tshref -p
+ 4068 pts/3    T      0:00 ./mysplit 4
+ 4069 pts/3    T      0:00 ./mysplit 4
+ 4072 pts/3    R      0:00 /bin/ps a
+tsh> fg %1
+tsh> /bin/ps a
+  PID TTY      STAT   TIME COMMAND
+ 1091 tty4     Ss+    0:00 /sbin/getty -8 38400 tty4
+ 1098 tty5     Ss+    0:00 /sbin/getty -8 38400 tty5
+ 1116 tty2     Ss+    0:00 /sbin/getty -8 38400 tty2
+ 1117 tty3     Ss+    0:00 /sbin/getty -8 38400 tty3
+ 1122 tty6     Ss+    0:00 /sbin/getty -8 38400 tty6
+ 1202 tty7     Ss+    1:15 /usr/bin/X :0 -core -auth /var/run/lightdm/root/:0 -nolisten tcp vt7 -novtswitch -background none
+ 1414 tty1     Ss+    0:00 /sbin/getty -8 38400 tty1
+ 2188 pts/2    Ss     0:00 bash
+ 2250 pts/2    S      0:00 su
+ 2272 pts/2    S      0:00 bash
+ 2309 pts/2    S      0:00 su gaoce
+ 2317 pts/2    S+     0:00 bash
+ 3993 pts/3    Ss     0:00 bash
+ 4063 pts/3    S+     0:00 make rtest13
+ 4064 pts/3    S+     0:00 /bin/sh -c ./sdriver.pl -t trace13.txt -s ./tshref -a "-p"
+ 4065 pts/3    S+     0:00 /usr/bin/perl ./sdriver.pl -t trace13.txt -s ./tshref -a -p
+ 4066 pts/3    S+     0:00 ./tshref -p
+ 4075 pts/3    R      0:00 /bin/ps a

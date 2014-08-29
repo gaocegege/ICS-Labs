@@ -1,0 +1,20 @@
+SUMMARY:
+1.1 summary
+  The proxy lab is a little difficult.
+  In part A,I get all steps.The function doit() can get the requests, and send it to server.And I can handle the large response, with the logging.
+  In part B,I use the threads to deal with the requests currently.And I use the Producer-consumer model,use the bounded buf to have N working threads to achieve the Part B.To deal with the log,I use a sem_t to control the locking and the unlocking of the logging.
+
+1.2 webpage
+  The web I can handle:
+
+1.3 listenPort
+  The program get the port number from the inputing, so What I should do is to open_listenfd(port), get the listenPortfd,and wait for the client's requests.
+
+1.4 webpage cache
+  I don't know.
+
+1.5 handle multiple requests
+  I use the threads to deal with the requests currently.And I use the Producer-consumer model,use the bounded buf to have N working threads to achieve the Part B.To deal with the log,I use a sem_t to control the locking and the unlocking of the logging.
+
+1.6 others
+  Nothing.

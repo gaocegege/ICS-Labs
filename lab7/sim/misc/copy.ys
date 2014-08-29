@@ -1,0 +1,53 @@
+# Student ID:5120379091
+# Name		:Gao Ce
+	.pos 0
+init:	
+	irmovl 0x100, %esp  	# Set up Stack pointer
+	irmovl 0x100, %ebp  	# Set up base pointer
+	jmp Main		# Execute main program
+	.align 4
+# Source block
+src:
+	.long 0x00a
+	.long 0x0b0
+	.long 0xc00
+# Destination
+dest:
+	.long 0x111
+	.long 0x222
+	.long 0x333
+Main:
+	irmovl $3, %eax
+	pushl %eax
+	irmovl dest, %eax
+	pushl %eax
+	irmovl src, %eax
+	pushl %eax
+	call Copy
+	halt
+Copy:
+	pushl %ebp
+	rrmovl %esp,%ebp
+	xorl %eax, %eax
+	mrmovl 0x10(%ebp), %edx
+	mrmovl 0xc(%ebp), %ecx
+	mrmovl 0x8(%ebp), %ebx
+Loop:
+	andl %edx, %edx 
+	je End
+	mrmovl (%ebx), %esi
+	irmovl $4, %edi
+	addl %edi, %ebx
+	rmmovl %esi, (%ecx)
+	addl %edi, %ecx
+	xorl %esi, %eax
+	irmovl $-1, %edi
+	addl %edi, %edx
+	jmp Loop
+End:
+	rrmovl %ebp,%esp     # Deallocate stack frame
+	popl %ebp            # Restore %ebp
+	ret
+
+
+	

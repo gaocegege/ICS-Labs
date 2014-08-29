@@ -1,0 +1,53 @@
+                      | # Student ID:5120379091
+                      | # Name		:Gao Ce
+  0x000:              | 	.pos 0
+  0x000:              | init:	
+  0x000: 30f400010000 | 	irmovl 0x100, %esp  	# Set up Stack pointer
+  0x006: 30f500010000 | 	irmovl 0x100, %ebp  	# Set up base pointer
+  0x00c: 702c000000   | 	jmp Main		# Execute main program
+  0x014:              | 	.align 4
+                      | # Source block
+  0x014:              | src:
+  0x014: 0a000000     | 	.long 0x00a
+  0x018: b0000000     | 	.long 0x0b0
+  0x01c: 000c0000     | 	.long 0xc00
+                      | # Destination
+  0x020:              | dest:
+  0x020: 11010000     | 	.long 0x111
+  0x024: 22020000     | 	.long 0x222
+  0x028: 33030000     | 	.long 0x333
+  0x02c:              | Main:
+  0x02c: 30f003000000 | 	irmovl $3, %eax
+  0x032: a00f         | 	pushl %eax
+  0x034: 30f020000000 | 	irmovl dest, %eax
+  0x03a: a00f         | 	pushl %eax
+  0x03c: 30f014000000 | 	irmovl src, %eax
+  0x042: a00f         | 	pushl %eax
+  0x044: 804a000000   | 	call Copy
+  0x049: 00           | 	halt
+  0x04a:              | Copy:
+  0x04a: a05f         | 	pushl %ebp
+  0x04c: 2045         | 	rrmovl %esp,%ebp
+  0x04e: 6300         | 	xorl %eax, %eax
+  0x050: 502510000000 | 	mrmovl 0x10(%ebp), %edx
+  0x056: 50150c000000 | 	mrmovl 0xc(%ebp), %ecx
+  0x05c: 503508000000 | 	mrmovl 0x8(%ebp), %ebx
+  0x062:              | Loop:
+  0x062: 6222         | 	andl %edx, %edx 
+  0x064: 738e000000   | 	je End
+  0x069: 506300000000 | 	mrmovl (%ebx), %esi
+  0x06f: 30f704000000 | 	irmovl $4, %edi
+  0x075: 6073         | 	addl %edi, %ebx
+  0x077: 406100000000 | 	rmmovl %esi, (%ecx)
+  0x07d: 6071         | 	addl %edi, %ecx
+  0x07f: 6360         | 	xorl %esi, %eax
+  0x081: 30f7ffffffff | 	irmovl $-1, %edi
+  0x087: 6072         | 	addl %edi, %edx
+  0x089: 7062000000   | 	jmp Loop
+  0x08e:              | End:
+  0x08e: 2054         | 	rrmovl %ebp,%esp     # Deallocate stack frame
+  0x090: b05f         | 	popl %ebp            # Restore %ebp
+  0x092: 90           | 	ret
+                      | 
+                      | 
+                      | 	
